@@ -10,9 +10,11 @@ app.use(express.json());
 
 app.post('/login', middleware.validateLogin, controller.login);
 
-app.post('/user', middleware.validateUser, controller.create);
-app.get('/user', middleware.validateToken, controller.getAll);
-app.get('/user/:id', middleware.validateToken, controller.getById);
+app.post('/user', middleware.validateUser, controller.createUser);
+app.get('/user', middleware.validateToken, controller.getAllUsers);
+app.get('/user/:id', middleware.validateToken, controller.getUserById);
+
+// app.post('/categories', middleware.validateToken, middleware.validateCategory, controller.create);
 
 app.use(middleware.error);
 

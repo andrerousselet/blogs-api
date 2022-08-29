@@ -1,4 +1,4 @@
 const { login } = require('./loginService');
-const { create, getAll, getById } = require('./userService');
+const { createUser, getAllUsers, getUserById } = require('./userService');
 
-module.exports = { login, create, getAll, getById };
+module.exports = { login, createUser, getAllUsers, getUserById };

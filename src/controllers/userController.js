@@ -1,22 +1,23 @@
 const service = require('../services');
 
-const getAll = async (_req, res) => {
-  const users = await service.getAll();
+const getAllUsers = async (_req, res) => {
+  const users = await service.getAllUsers();
   return res.status(200).json(users);
 };
 
-const getById = async (req, res) => {
+const getUserById = async (req, res) => {
   const { id } = req.params;
-  const { user, code, message } = await service.getById(id);
+  const { user, code, message } = await service.getUserById(id);
   if (message) return res.status(code).json({ message });
   return res.status(code).json(user);
 };
 
-const create = async (req, res) => {
+const createUser = async (req, res) => {
   const { displayName, email, password, image } = req.body;
-  const { token, code, message } = await service.create({ displayName, email, password, image });
+  const { token, code, message } = await service
+    .createUser({ displayName, email, password, image });
   if (message) return res.status(code).json({ message });
   return res.status(code).json({ token });
 };
 
-module.exports = { getAll, getById, create };
+module.exports = { getAllUsers, getUserById, createUser };

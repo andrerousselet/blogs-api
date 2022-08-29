@@ -18,6 +18,7 @@ app.post('/categories',
   middleware.validateToken,
   middleware.validateCategory,
   controller.createCategory);
+app.get('/categories', middleware.validateToken, controller.getAllCategories);
 
 app.use(middleware.error);
 

@@ -9,7 +9,9 @@ const app = express();
 app.use(express.json());
 
 app.post('/login', middleware.validateLogin, controller.login);
+
 app.post('/user', middleware.validateUser, controller.create);
+app.get('/user', middleware.validateToken, controller.getAll);
 
 app.use(middleware.error);
 

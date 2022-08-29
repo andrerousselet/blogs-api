@@ -17,7 +17,7 @@ app.get('/user/:id', middleware.validateToken, controller.getUserById);
 app.post('/categories',
   middleware.validateToken,
   middleware.validateCategory,
-  controller.createCat);
+  controller.createCategory);
 
 app.use(middleware.error);
 

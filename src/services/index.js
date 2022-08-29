@@ -1,5 +1,5 @@
 const { login } = require('./loginService');
 const { createUser, getAllUsers, getUserById } = require('./userService');
-const { createCat } = require('./categoryService');
+const { createCategory } = require('./categoryService');
 
-module.exports = { login, createUser, getAllUsers, getUserById, createCat };
+module.exports = { login, createUser, getAllUsers, getUserById, createCategory };

@@ -1,10 +1,10 @@
 const service = require('../services');
 
-const create = async (req, res) => {
+const createCat = async (req, res) => {
   const { name } = req.body;
-  const { category, code, message } = await service.create({ name });
+  const { newCategory, code, message } = await service.createCat(name);
   if (message) return res.status(code).json({ message });
-  return res.status(code).json(category);
+  return res.status(code).json(newCategory);
 };
 
-module.exports = { create };
+module.exports = { createCat };

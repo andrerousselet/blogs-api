@@ -1,4 +1,4 @@
-const middleware = require('../middlewares/token.middleware');
+const middleware = require('../middlewares/auth.middleware');
 const { User } = require('../database/models');
 
 const login = async ({ email, password }) => {

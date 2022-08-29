@@ -1,6 +1,11 @@
 const middleware = require('../middlewares/auth.middleware');
 const { User } = require('../database/models');
 
+const getAll = async () => {
+  const users = await User.findAll({ attributes: { exclude: 'password' } });
+  return users;
+};
+
 const create = async ({ displayName, email, password, image }) => {
   const token = middleware.generateToken({ displayName, email, image });
   const user = await User.findOne({ where: { email } });
@@ -9,4 +14,4 @@ const create = async ({ displayName, email, password, image }) => {
   return { code: 201, token };
 };
 
-module.exports = { create };
+module.exports = { create, getAll };

@@ -14,7 +14,10 @@ app.post('/user', middleware.validateUser, controller.createUser);
 app.get('/user', middleware.validateToken, controller.getAllUsers);
 app.get('/user/:id', middleware.validateToken, controller.getUserById);
 
-// app.post('/categories', middleware.validateToken, middleware.validateCategory, controller.create);
+app.post('/categories',
+  middleware.validateToken,
+  middleware.validateCategory,
+  controller.createCat);
 
 app.use(middleware.error);
 

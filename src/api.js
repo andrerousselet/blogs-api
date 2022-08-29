@@ -12,6 +12,7 @@ app.post('/login', middleware.validateLogin, controller.login);
 
 app.post('/user', middleware.validateUser, controller.create);
 app.get('/user', middleware.validateToken, controller.getAll);
+app.get('/user/:id', middleware.validateToken, controller.getById);
 
 app.use(middleware.error);
 

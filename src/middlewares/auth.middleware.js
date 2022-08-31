@@ -15,7 +15,8 @@ const validateToken = (req, res, next) => {
   const { authorization: token } = req.headers;
   if (!token) return res.status(401).json({ message: 'Token not found' });
   try {
-    jwt.verify(token, JWT_SECRET);
+    const { data } = jwt.verify(token, JWT_SECRET);
+    res.locals.user = data.email;
     next();
   } catch (error) {
     error.code = 401;

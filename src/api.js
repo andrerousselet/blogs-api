@@ -20,6 +20,11 @@ app.post('/categories',
   controller.createCategory);
 app.get('/categories', middleware.validateToken, controller.getAllCategories);
 
+app.post('/post',
+  middleware.validateToken,
+  middleware.validatePost,
+  controller.createPost);
+
 app.use(middleware.error);
 
 // É importante exportar a constante `app`,

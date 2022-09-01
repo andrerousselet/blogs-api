@@ -42,6 +42,7 @@ app.get('/categories', middleware.validateToken, controller.getAllCategories);
 
 app.post('/post', middleware.validateToken, middleware.validatePost, controller.createPost);
 app.get('/post', middleware.validateToken, controller.getAllPosts);
+app.get('/post/search', middleware.validateToken, controller.searchPost);
 app.get('/post/:id', middleware.validateToken, controller.getPostById);
 app.put('/post/:id',
   middleware.validateToken,

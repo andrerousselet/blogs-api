@@ -12,17 +12,36 @@ app.post('/login', middleware.validateLogin, controller.login);
 
 app.post('/user', middleware.validateUser, controller.createUser);
 
+/* 
 app.use(middleware.validateToken);
 
-app.get('/user', controller.getAllUsers);
-app.get('/user/:id', controller.getUserById);
+Aplicação funciona desta forma, sem precisar repetir em todo endpoint o validateToken,
+mas por algum motivo os testes não rodam ↓: 
+  Error: Timed out waiting for: http://localhost:3030
+    at /app/node_modules/wait-on/lib/wait-on.js:132:31
+    at doInnerSub (/app/node_modules/wait-on/node_modules/rxjs/dist/cjs/internal/operators/mergeInternals.js:22:31)
+    at outerNext (/app/node_modules/wait-on/node_modules/rxjs/dist/cjs/internal/operators/mergeInternals.js:17:70)
+    at OperatorSubscriber._this._next (/app/node_modules/wait-on/node_modules/rxjs/dist/cjs/internal/operators/OperatorSubscriber.js:33:21)
+    at OperatorSubscriber.Subscriber.next (/app/node_modules/wait-on/node_modules/rxjs/dist/cjs/internal/Subscriber.js:51:18)
+    at AsyncAction.work (/app/node_modules/wait-on/node_modules/rxjs/dist/cjs/internal/observable/timer.js:28:28)
+    at AsyncAction._execute (/app/node_modules/wait-on/node_modules/rxjs/dist/cjs/internal/scheduler/AsyncAction.js:76:18)
+    at AsyncAction.execute (/app/node_modules/wait-on/node_modules/rxjs/dist/cjs/internal/scheduler/AsyncAction.js:64:26)
+    at AsyncScheduler.flush (/app/node_modules/wait-on/node_modules/rxjs/dist/cjs/internal/scheduler/AsyncScheduler.js:39:33)
+    at listOnTimeout (node:internal/timers:559:17)
+*/
 
-app.post('/categories', middleware.validateCategory, controller.createCategory);
-app.get('/categories', controller.getAllCategories);
+app.get('/user', middleware.validateToken, controller.getAllUsers);
+app.get('/user/:id', middleware.validateToken, controller.getUserById);
 
-app.post('/post', middleware.validatePost, controller.createPost);
-app.get('/post', controller.getAllPosts);
-app.get('/post/:id', controller.getPostById);
+app.post('/categories', 
+  middleware.validateToken,
+  middleware.validateCategory,
+  controller.createCategory);
+app.get('/categories', middleware.validateToken, controller.getAllCategories);
+
+app.post('/post', middleware.validateToken, middleware.validatePost, controller.createPost);
+app.get('/post', middleware.validateToken, controller.getAllPosts);
+app.get('/post/:id', middleware.validateToken, controller.getPostById);
 
 app.use(middleware.error);
 

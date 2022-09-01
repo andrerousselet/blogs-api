@@ -12,6 +12,15 @@ const getPostById = async (req, res) => {
   return res.status(code).json(post);
 };
 
+const updatePost = async (req, res) => {
+  const { id: postId } = req.params;
+  const { title, content } = req.body;
+  const { id: userId } = res.locals.user;
+  const { post, code, message } = await service.updatePost({ postId, title, content, userId });
+  if (message) return res.status(code).json({ message });
+  return res.status(code).json(post);
+};
+
 const createPost = async (req, res) => {
   const { title, content, categoryIds } = req.body;
   const { id: userId } = res.locals.user;
@@ -22,4 +31,4 @@ const createPost = async (req, res) => {
   return res.status(code).json(post);
 };
 
-module.exports = { getAllPosts, createPost, getPostById };
+module.exports = { getAllPosts, getPostById, updatePost, createPost };

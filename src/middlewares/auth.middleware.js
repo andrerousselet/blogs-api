@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { User } = require('../database/models');
 
 const { JWT_SECRET } = process.env;
 
@@ -11,12 +12,13 @@ const generateToken = (user) => {
   return token;
 };
 
-const validateToken = (req, res, next) => {
+const validateToken = async (req, res, next) => {
   const { authorization: token } = req.headers;
   if (!token) return res.status(401).json({ message: 'Token not found' });
   try {
     const { data } = jwt.verify(token, JWT_SECRET);
-    res.locals.user = data.email;
+    const user = await User.findOne({ where: { email: data.email } });
+    res.locals.user = user;
     next();
   } catch (error) {
     error.code = 401;

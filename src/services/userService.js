@@ -20,4 +20,9 @@ const createUser = async ({ displayName, email, password, image }) => {
   return { code: 201, token };
 };
 
-module.exports = { createUser, getAllUsers, getUserById };
+const deleteUser = async (id) => {
+  const result = await User.destroy({ where: { id } });
+  if (result === 1) return { code: 204 };
+};
+
+module.exports = { createUser, getAllUsers, getUserById, deleteUser };

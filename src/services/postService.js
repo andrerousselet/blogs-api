@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, PostCategory, User, Category, sequelize } = require('../database/models');
 
 const getAllPosts = async () => {
@@ -54,4 +55,21 @@ const deletePost = async ({ postId, userId }) => {
   if (deletion === 1) return { code: 204 };
 };
 
-module.exports = { getAllPosts, getPostById, updatePost, createPost, deletePost };
+const searchPost = async (q) => {
+  const searchResult = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.substring]: q } },
+        { content: { [Op.substring]: q } },
+      ],
+    },
+    attributes: { exclude: ['UserId'] }, // verificar pq essa chave está sendo criada...
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return searchResult;
+};
+
+module.exports = { getAllPosts, getPostById, updatePost, createPost, deletePost, searchPost };

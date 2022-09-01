@@ -20,4 +20,10 @@ const createUser = async (req, res) => {
   return res.status(code).json({ token });
 };
 
-module.exports = { getAllUsers, getUserById, createUser };
+const deleteUser = async (_req, res) => {
+  const { id } = res.locals.user;
+  const { code } = await service.deleteUser(id);
+  return res.status(code).end();
+};
+
+module.exports = { getAllUsers, getUserById, createUser, deleteUser };

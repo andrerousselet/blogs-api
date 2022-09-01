@@ -46,6 +46,7 @@ app.put('/post/:id',
   middleware.validateToken,
   middleware.validatePostUpdate,
   controller.updatePost);
+app.delete('/post/:id', middleware.validateToken, controller.deletePost);
 
 app.use(middleware.error);
 

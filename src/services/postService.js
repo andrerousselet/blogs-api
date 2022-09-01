@@ -1,13 +1,18 @@
-const { BlogPost, PostCategory, User, sequelize } = require('../database/models');
+const { BlogPost, PostCategory, User, Category, sequelize } = require('../database/models');
 
-const getUserId = async (userEmail) => {
-  const { id: userId } = await User.findOne({ where: { email: userEmail } });
-  return userId;
+const getAllPosts = async () => {
+  const posts = await BlogPost.findAll({
+    attributes: { exclude: ['UserId'] }, // verificar pq essa chave está sendo criada...
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return posts;
 };
 
-const createPost = async ({ title, content, categoryIds, userEmail }) => {
+const createPost = async ({ title, content, categoryIds, userId }) => {
   const post = await sequelize.transaction(async (transaction) => {
-    const userId = await getUserId(userEmail);
     const createdPost = await BlogPost.create({ title, content, userId }, { transaction });
     const postCategories = categoryIds.map((catId) => (
       { postId: createdPost.id, categoryId: catId }
@@ -18,4 +23,4 @@ const createPost = async ({ title, content, categoryIds, userEmail }) => {
   return { code: 201, post };
 };
 
-module.exports = { createPost };
+module.exports = { createPost, getAllPosts };

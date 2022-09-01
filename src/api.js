@@ -32,6 +32,7 @@ mas por algum motivo os testes não rodam ↓:
 
 app.get('/user', middleware.validateToken, controller.getAllUsers);
 app.get('/user/:id', middleware.validateToken, controller.getUserById);
+app.delete('/user/me', middleware.validateToken, controller.deleteUser);
 
 app.post('/categories', 
   middleware.validateToken,

@@ -5,6 +5,13 @@ const getAllPosts = async (_req, res) => {
   return res.status(200).json(posts);
 };
 
+const getPostById = async (req, res) => {
+  const { id } = req.params;
+  const { post, code, message } = await service.getPostById(id);
+  if (message) return res.status(code).json({ message });
+  return res.status(code).json(post);
+};
+
 const createPost = async (req, res) => {
   const { title, content, categoryIds } = req.body;
   const { id: userId } = res.locals.user;
@@ -15,4 +22,4 @@ const createPost = async (req, res) => {
   return res.status(code).json(post);
 };
 
-module.exports = { getAllPosts, createPost };
+module.exports = { getAllPosts, createPost, getPostById };

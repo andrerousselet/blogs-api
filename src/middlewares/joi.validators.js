@@ -31,6 +31,11 @@ const postSchema = Joi.object({
   categoryIds: Joi.array().min(1).items(Joi.number().required()).required(),
 });
 
+const postUpdateSchema = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 const validateLogin = (req, res, next) => {
   const { error } = loginSchema.validate(req.body);
   if (error) {
@@ -57,4 +62,16 @@ const validatePost = (req, res, next) => {
   next();
 };
 
-module.exports = { validateLogin, validateUser, validateCategory, validatePost };
+const validatePostUpdate = (req, res, next) => {
+  const { error } = postUpdateSchema.validate(req.body);
+  if (error) return res.status(400).json({ message: MESSAGE });
+  next();
+};
+
+module.exports = {
+  validateLogin, 
+  validateUser, 
+  validateCategory,
+  validatePost, 
+  validatePostUpdate, 
+};

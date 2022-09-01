@@ -1,5 +1,11 @@
 const { generateToken, validateToken } = require('./auth.middleware');
-const { validateLogin, validateUser, validateCategory, validatePost } = require('./joi.validators');
+const { 
+  validateLogin,
+  validateUser,
+  validateCategory,
+  validatePost,
+  validatePostUpdate, 
+} = require('./joi.validators');
 const error = require('./error.middleware');
 
 module.exports = { 
@@ -10,4 +16,5 @@ module.exports = {
   validateToken,
   validateCategory,
   validatePost,
+  validatePostUpdate,
 };

@@ -24,6 +24,7 @@ app.post('/post',
   middleware.validateToken,
   middleware.validatePost,
   controller.createPost);
+app.get('/post', middleware.validateToken, controller.getAllPosts);
 
 app.use(middleware.error);
 

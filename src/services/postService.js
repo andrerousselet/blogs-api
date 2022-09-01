@@ -23,6 +23,17 @@ const getPostById = async (id) => {
   return { code: 200, post };
 };
 
+const updatePost = async ({ postId, title, content, userId }) => {
+  const post = await BlogPost.findByPk(postId);
+  if (!post) return { code: 404, message: 'Post does not exist' };
+  if (post.userId !== userId) return { code: 401, message: 'Unauthorized user' };
+  const [updatedPost] = await BlogPost.update(
+    { title, content },
+    { where: { id: postId, userId } },
+  );
+  if (updatedPost === 1) return getPostById(postId);
+};
+
 const createPost = async ({ title, content, categoryIds, userId }) => {
   const post = await sequelize.transaction(async (transaction) => {
     const createdPost = await BlogPost.create({ title, content, userId }, { transaction });
@@ -35,4 +46,4 @@ const createPost = async ({ title, content, categoryIds, userId }) => {
   return { code: 201, post };
 };
 
-module.exports = { createPost, getAllPosts, getPostById };
+module.exports = { getAllPosts, getPostById, updatePost, createPost };

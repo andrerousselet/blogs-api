@@ -7,6 +7,7 @@ const {
   getPostById,
   updatePost,
   deletePost,
+  searchPost,
 } = require('./postController');
 
 module.exports = { 
@@ -22,4 +23,5 @@ module.exports = {
   getPostById,
   updatePost,
   deletePost,
+  searchPost,
 };

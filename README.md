@@ -1,6 +1,6 @@
 # Blogs API
 
-A REST API and MySQL Database to manage blog posts.
+A REST API and MySQL Database to manage blog posts
 ---
 
 ### Developed Skills
@@ -24,7 +24,6 @@ A REST API and MySQL Database to manage blog posts.
 
 > A Trybe project, developed during the back-end module. All files outside `src/` directory were developed by Trybe.
 
----
 
 ### To run the app:
 
